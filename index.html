@@ -1,0 +1,316 @@
+<html>
+    <head>
+        <style>
+            html {
+                background-color: #282828;
+                text-align: center;
+                font-size: 10px;
+            }
+
+            body {
+                margin: 0;
+                font-size: 2rem;
+                flex: 1;
+            }
+
+            .clock {
+                width: 30rem;
+                height: 30rem;
+                position: relative;
+                padding: 2rem;
+                border: 8px groove cyan;
+                border-radius: 50%;
+                margin: 4rem auto
+            }
+
+            .outer-clock-face {
+                position: relative;
+                background: #282828;
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                border-radius: 100%;
+            }
+
+            .outer-clock-face::after {
+            -webkit-transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            transform: rotate(90deg)
+            }
+
+            .outer-clock-face::after,
+            .outer-clock-face::before,
+            .outer-clock-face .marking {
+                content: '';
+                position: absolute;
+                width: 5px;
+                height: 100%;
+                background: #1df52f;
+                z-index: 0;
+                left: 49%;
+                }
+
+            .outer-clock-face .marking {
+                background: cornsilk;
+                width: 3px
+            }
+
+            .outer-clock-face .marking-one {
+                -webkit-transform: rotate(30deg);
+                -moz-transform: rotate(30deg);
+                transform: rotate(30deg)
+            }
+
+            .outer-clock-face .marking-two {
+                -webkit-transform: rotate(60deg);
+                -moz-transform: rotate(60deg);
+                transform: rotate(60deg);
+            }
+
+            .outer-clock-face .marking-three {
+                -webkit-transform: rotate(120deg);
+                -moz-transform: rotate(120deg);
+                transform: rotate(120deg);
+            }
+
+            .outer-clock-face .marking-four {
+            -webkit-transform: rotate(150deg);
+            -moz-transform: rotate(150deg);
+            transform: rotate(150deg);
+            }
+
+            .inner-clock-face {
+                position: absolute;
+                top: 10%;
+                left: 10%;
+                width: 80%;
+                height: 80%;
+                background-color: #282828;
+                -webkit-border-radius: 100%;
+                -moz-border-radius: 100%;
+                border-radius: 100%;
+                z-index: 1;
+
+            }
+
+            .clock-face-centre {
+                position: absolute;
+                z-index: 11;
+                top: 50%;
+                left: 50%;
+                height: 1rem;
+                width: 1rem;
+                background-color: cyan;
+                border-radius: 100%;
+                margin-top: -5px;
+                margin-left: -5px;
+            }
+
+            .hand {
+                width: 50%;
+                right: 50%;
+                height: 6px;
+                background: #61afff;
+                position: absolute;
+                top: 50%;
+                border-radius: 6px;
+                transform-origin: 100%;
+                transform: rotate(90deg);
+                transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+            }
+
+            .hand.hour-hand {
+                width: 30%;
+                z-index: 3;
+            }
+
+            .hand.minute-hand {
+                height: 3px;
+                z-index: 10;
+                width: 40%;
+            }
+
+            .hand.second-hand {
+                background: #ee791a;
+                width: 45%;
+                height: 2px;
+                z-index: 5;
+            }
+
+
+
+            .lcd, .colon, .amorpm {
+                width: 30px;
+                height: 40px;
+                display: inline-flex;
+                justify-content: center;
+                margin: 20px auto
+
+            }
+
+            .colon {
+                position: relative;
+                top: 10px;
+                font-size: 4rem;
+                color: chartreuse;
+            }
+
+            .amorpm {
+                position: relative;
+                top: 10px;
+                left: 20px;
+                font-size: 4rem;
+                color: chartreuse;
+                font-style: italic;
+                font-family: 'Courier New', Courier, monospace;
+            }
+
+
+            .lcd-char {
+                width: 2px;
+                height: 20px;
+                position: absolute;
+                background:chartreuse
+            }
+
+            .lcd-top {
+                position: relative;
+                transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                top: -12px;
+                left: 4px;
+            }
+
+            .lcd-top-left {
+                position: relative;
+                left: -8px;
+            }
+
+            .lcd-bottom-left {
+                position: relative;
+                left: -14px;
+                top: 23px
+            }
+
+            .lcd-middle {
+                position: relative;
+                transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                top: 12px;
+                left: -1px;
+            }
+
+
+            .lcd-bottom {
+                position: relative;
+                transform: rotate(90deg);
+                -webkit-transform: rotate(90deg);
+                -moz-transform: rotate(90deg);
+                top: 35px;
+                left: -7px;
+            }
+
+            .lcd-top-right {
+                position: relative;
+                left: 11px;
+            }
+
+            .lcd-bottom-right {
+                position: relative;
+                left: 5px;
+                top: 23px
+            }
+        </style>
+    </head>
+    <body>
+        <div class="clock">
+
+             <div class="outer-clock-face">
+                <div class="marking marking-one"></div>
+                <div class="marking marking-two"></div>
+                <div class="marking marking-three"></div>
+                <div class="marking marking-four"></div>
+                <div class="inner-clock-face">
+                    <div class="clock-face-centre">
+
+                    </div>
+                </div>
+                <div class="hand hour-hand"></div>
+                <div class="hand minute-hand"></div>
+                <div class="hand second-hand"></div>
+              </div>
+
+        </div>
+
+        <div class="digital-readout">
+            <div class="lcd">
+                <div id="hour1-top" class="lcd-char lcd-top"></div>
+                <div id="hour1-top-left" class="lcd-char lcd-top-left"></div>
+                <div id="hour1-top-right" class="lcd-char lcd-top-right"></div>
+                <div id="hour1-middle" class="lcd-char lcd-middle"></div>
+                <div id="hour1-bottom-left" class="lcd-char lcd-bottom-left"></div>
+                <div id="hour1-bottom-right" class="lcd-char lcd-bottom-right"></div>
+                <div id="hour1-bottom" class="lcd-char lcd-bottom"></div>
+            </div>
+            <div class="lcd">
+                <div id="hour2-top" class="lcd-char lcd-top"></div>
+                <div id="hour2-top-left" class="lcd-char lcd-top-left"></div>
+                <div id="hour2-top-right" class="lcd-char lcd-top-right"></div>
+                <div id="hour2-middle" class="lcd-char lcd-middle"></div>
+                <div id="hour2-bottom-left" class="lcd-char lcd-bottom-left"></div>
+                <div id="hour2-bottom-right" class="lcd-char lcd-bottom-right"></div>
+                <div id="hour2-bottom" class="lcd-char lcd-bottom"></div>
+            </div>
+            <div class="colon">
+                <p>:</p>
+            </div>
+            <div class="lcd">
+                <div id="minute1-top" class="lcd-char lcd-top"></div>
+                <div id="minute1-top-left" class="lcd-char lcd-top-left"></div>
+                <div id="minute1-top-right" class="lcd-char lcd-top-right"></div>
+                <div id="minute1-middle" class="lcd-char lcd-middle"></div>
+                <div id="minute1-bottom-left" class="lcd-char lcd-bottom-left"></div>
+                <div id="minute1-bottom-right" class="lcd-char lcd-bottom-right"></div>
+                <div id="minute1-bottom" class="lcd-char lcd-bottom"></div>
+            </div>
+            <div class="lcd">
+                <div id="minute2-top" class="lcd-char lcd-top"></div>
+                <div id="minute2-top-left" class="lcd-char lcd-top-left"></div>
+                <div id="minute2-top-right" class="lcd-char lcd-top-right"></div>
+                <div id="minute2-middle" class="lcd-char lcd-middle"></div>
+                <div id="minute2-bottom-left" class="lcd-char lcd-bottom-left"></div>
+                <div id="minute2-bottom-right" class="lcd-char lcd-bottom-right"></div>
+                <div id="minute2-bottom" class="lcd-char lcd-bottom"></div>
+            </div>
+            <div class="colon">
+                <p>:</p>
+            </div>
+            <div class="lcd">
+                <div id="second1-top" class="lcd-char lcd-top"></div>
+                <div id="second1-top-left" class="lcd-char lcd-top-left"></div>
+                <div id="second1-top-right" class="lcd-char lcd-top-right"></div>
+                <div id="second1-middle" class="lcd-char lcd-middle"></div>
+                <div id="second1-bottom-left" class="lcd-char lcd-bottom-left"></div>
+                <div id="second1-bottom-right" class="lcd-char lcd-bottom-right"></div>
+                <div id="second1-bottom" class="lcd-char lcd-bottom"></div>
+            </div>
+            <div class="lcd">
+                <div id="second2-top" class="lcd-char lcd-top"></div>
+                <div id="second2-top-left" class="lcd-char lcd-top-left"></div>
+                <div id="second2-top-right" class="lcd-char lcd-top-right"></div>
+                <div id="second2-middle" class="lcd-char lcd-middle"></div>
+                <div id="second2-bottom-left" class="lcd-char lcd-bottom-left"></div>
+                <div id="second2-bottom-right" class="lcd-char lcd-bottom-right"></div>
+                <div id="second2-bottom" class="lcd-char lcd-bottom"></div>
+            </div>
+            <div class="amorpm">
+                <p id="partofday"></p>
+            </div>
+        </div>
+
+        <script src="script.js">
+        </script>
+    </body>
+</html>
